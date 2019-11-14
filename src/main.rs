@@ -42,4 +42,5 @@ fn create_progress_bar(quiet_mode: bool, msg: &str, length: Option<u64>) -> Prog
             .progress_chars("=> ")),            
         false => bar.set_style(ProgressStyle::default_spinner())
     };
+    bar
 }
