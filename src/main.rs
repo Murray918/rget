@@ -21,3 +21,16 @@ fn main() {
     println!("{}", url)
 }
 
+fn create_progress_bar(quiet_mode: bool, msg: &str, length: Option<u64>) -> ProgressBar {
+    //match is pattern matching the quiet_mode arguments to the desired ProgressBar
+    let bar = match quiet_mode {
+        true => ProgressBar::hidden(),
+        false => {
+            match length {
+                Some(len) => ProgressBar::new(len),
+                None => ProgressBar::new_Spinner(),
+            }
+        }
+    };
+
+}
