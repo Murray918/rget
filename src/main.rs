@@ -3,7 +3,7 @@ extern crate clap;
 
 //use the Arg, App from clap
 use clap::{Arg, App};
-use indicatif::ProgressBar;
+use indicatif::{ProgressBar, ProgressStyle};
 
 
 
@@ -34,5 +34,12 @@ fn create_progress_bar(quiet_mode: bool, msg: &str, length: Option<u64>) -> Prog
             }
         }
     };
-    
+    bar.set_message(msg);
+    match length.is_some() {
+        true => bar 
+            .set_style(ProgressStyle::default_bar()
+            .template("{msg} {spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {bytes}/{total_bytes} eta: {eta}")
+            .progress_chars("=> ")),            
+        false => bar.set_style(ProgressStyle::default_spinner())
+    };
 }
