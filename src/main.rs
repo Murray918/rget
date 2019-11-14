@@ -1,11 +1,18 @@
 //import the clap crate
 extern crate clap;
+extern crate console;
+extern crate reqwest;
+extern crate indicatif;
 
+use std::fs::File;
+use std::io::Read;
+use std::io::copy;
+use std::result::Result;
 //use the Arg, App from clap
 use clap::{Arg, App};
 use indicatif::{ProgressBar, ProgressStyle};
-
-
+use reqwest::Client;
+use reqwest::header::ContentLength;
 
 //main function or entry point 
 fn main() {
@@ -43,4 +50,15 @@ fn create_progress_bar(quiet_mode: bool, msg: &str, length: Option<u64>) -> Prog
         false => bar.set_style(ProgressStyle::default_spinner())
     };
     bar
+}
+
+fn download(target: &str, quiet_mode: bool) -> Result<(), Box<::std::error::Error>> {
+    // here we parse the URL
+    let url = parse_url(target)?;
+    let client = Client.new().unwrap();
+    let mut resp = client.get(url)?
+        .send()
+        .unwrap();
+   
+
 }
