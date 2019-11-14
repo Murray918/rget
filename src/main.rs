@@ -3,6 +3,8 @@ extern crate clap;
 
 //use the Arg, App from clap
 use clap::{Arg, App};
+use indicatif::ProgressBar;
+
 
 
 //main function or entry point 
@@ -28,9 +30,9 @@ fn create_progress_bar(quiet_mode: bool, msg: &str, length: Option<u64>) -> Prog
         false => {
             match length {
                 Some(len) => ProgressBar::new(len),
-                None => ProgressBar::new_Spinner(),
+                None => ProgressBar::new_spinner(),
             }
         }
     };
-
+    
 }
